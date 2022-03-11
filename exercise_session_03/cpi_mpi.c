@@ -11,7 +11,7 @@ int main(int argc, char** argv){
     double tWStart, tWElapsed;
     double tStart, tElapsed;
 
-    tStart = getTime()
+    tStart = getTime();
 
     MPI_Init(&argc, &argv);
     MPI_Comm_size(MPI_COMM_WORLD,&nProcs);
@@ -41,7 +41,7 @@ int main(int argc, char** argv){
     }
     MPI_Finalize();
 
-    tElapsed = getTime() - tStart
-    printf("Computed in %.4g seconds - getTime\n", tElapsed)
+    tElapsed = getTime() - tStart;
+    printf("Computed in %.4g seconds - getTime\n", tElapsed);
     return 0;
 }
