@@ -10,7 +10,7 @@ cpi.o		: cpi.c gettime.h
 cpi_mpi.o	:
 	gcc -O3 -o cpi_mpi.o cpi_mpi.c
 
-ime.o		: gettime.c gettime.h
+gettime.o		: gettime.c gettime.h
 	gcc -O3 -c -o gettime.o gettime.c
 
 clean:
