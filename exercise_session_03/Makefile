@@ -1,4 +1,5 @@
-CFLAGS=-O0
+CFLAGS=-O3 -fopenmp
+LDFLAGS=-fopenmp
 CC=gcc
 
 cpi		: cpi.o gettime.o
