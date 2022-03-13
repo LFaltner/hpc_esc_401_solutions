@@ -1,25 +1,21 @@
+CFLAGS=-O0
+CC=gcc
+
 cpi		: cpi.o gettime.o
-	gcc -o cpi cpi.o gettime.o
 
 cpi_mpi		: cpi_mpi.o gettime.o
-	cc -o cpi_mpi cpi_mpi.o gettime.o
 
 cpi.o		: cpi.c gettime.h
-	gcc -O3 -c -o cpi.o cpi.c
 
 cpi_mpi.o	: cpi_mpi.c gettime.h
-	cc -O3 -c -o cpi_mpi.o cpi_mpi.c
 
 gettime.o	: gettime.c gettime.h
-	cc -O3 -c -o gettime.o gettime.c
 
-sum			: sum.o gettime.o
-	cc -o sum sum.o gettime.o -lm
+sum			: sum.o gettime.o -lm
 
 sum.o		: sum.c gettime.h
-	gcc -O0 -c -o sum.o sum.c
 
 clean:
 	rm -f cpi cpi.o gettime.o cpi_mpi cpi_mpi.o sum sum.o
 
-all: cpi cpi_mpi
+all: cpi cpi_mpi sum
