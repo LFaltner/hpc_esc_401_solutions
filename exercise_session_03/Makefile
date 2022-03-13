@@ -1,17 +1,17 @@
-cpi			: cpi.o gettime.o
+cpi		: cpi.o gettime.o
 	gcc -o cpi cpi.o gettime.o
 
 cpi_mpi		: cpi_mpi.o gettime.o
-	gcc -o cpi_mpi cpi_mpi.o gettime.o
+	cc -o cpi_mpi cpi_mpi.o gettime.o
 
 cpi.o		: cpi.c gettime.h
 	gcc -O3 -c -o cpi.o cpi.c
 
 cpi_mpi.o	: cpi_mpi.c gettime.h
-	cc -O3 -o cpi_mpi.o cpi_mpi.c
+	cc -O3 -c -o cpi_mpi.o cpi_mpi.c
 
 gettime.o	: gettime.c gettime.h
-	gcc -O3 -c -o gettime.o gettime.c
+	cc -O3 -c -o gettime.o gettime.c
 
 clean:
 	rm -f cpi cpi.o gettime.o cpi_mpi cpi_mpi.o
