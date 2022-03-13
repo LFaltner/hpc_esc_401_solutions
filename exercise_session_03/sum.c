@@ -3,6 +3,8 @@
 #include <assert.h>
 #include <math.h>
 
+#include "gettime.h"
+
 typedef struct {
     float x;
     float y;
@@ -10,12 +12,15 @@ typedef struct {
     float r2;
 } coord;
 
+
 int main(int argc, char *argv[]) {
     const int N = 1024*1024*256;
     coord *data;
     int i;
     double sum;
+    double tStart, tElapsed;
     
+    tStart = getTime();
     data = malloc(N * sizeof(coord));
     assert(data);
     
@@ -28,5 +33,8 @@ int main(int argc, char *argv[]) {
         sum += sqrt(data[i].r2);
     }
     printf("sum=%f\n", sum);
+    
+    tElapsed = getTime() - tStart;
+    printf("Computed in %.4g seconds\n", tElapsed);
     return 0;
 }
