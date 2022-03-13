@@ -13,7 +13,13 @@ cpi_mpi.o	: cpi_mpi.c gettime.h
 gettime.o	: gettime.c gettime.h
 	cc -O3 -c -o gettime.o gettime.c
 
+sum			: sum.o gettime.o
+	cc -o sum sum.o gettime.o -lm
+
+sum.o		: sum.c gettime.h
+	gcc -O0 -c -o sum.o sum.c
+
 clean:
-	rm -f cpi cpi.o gettime.o cpi_mpi cpi_mpi.o
+	rm -f cpi cpi.o gettime.o cpi_mpi cpi_mpi.o sum sum.o
 
 all: cpi cpi_mpi
