@@ -1,0 +1,91 @@
+Process rank: 5
+Computed in 0.05906 seconds - getTime
+Process rank: 8
+Computed in 0.05899 seconds - getTime
+Process rank: 14
+Computed in 0.05902 seconds - getTime
+Process rank: 24
+Computed in 0.05901 seconds - getTime
+Process rank: 25
+Computed in 0.05905 seconds - getTime
+Process rank: 28
+Computed in 0.05901 seconds - getTime
+Process rank: 29
+Computed in 0.05908 seconds - getTime
+Process rank: 0
+pi is approximately 3.1415926555898399, Error is 0.0000000020000468
+Computed in 0.04902 seconds - MPI_Wtime
+Computed in 0.0592 seconds - getTime
+Process rank: 1
+Computed in 0.05907 seconds - getTime
+Process rank: 2
+Computed in 0.0591 seconds - getTime
+Process rank: 3
+Computed in 0.05909 seconds - getTime
+Process rank: 4
+Computed in 0.05908 seconds - getTime
+Process rank: 6
+Computed in 0.05906 seconds - getTime
+Process rank: 7
+Computed in 0.05906 seconds - getTime
+Process rank: 9
+Computed in 0.05916 seconds - getTime
+Process rank: 10
+Computed in 0.05906 seconds - getTime
+Process rank: 11
+Computed in 0.05909 seconds - getTime
+Process rank: 12
+Computed in 0.05911 seconds - getTime
+Process rank: 13
+Computed in 0.05909 seconds - getTime
+Process rank: 15
+Computed in 0.05906 seconds - getTime
+Process rank: 16
+Computed in 0.05905 seconds - getTime
+Process rank: 17
+Computed in 0.05906 seconds - getTime
+Process rank: 18
+Computed in 0.05909 seconds - getTime
+Process rank: 19
+Computed in 0.05907 seconds - getTime
+Process rank: 21
+Computed in 0.0592 seconds - getTime
+Process rank: 22
+Computed in 0.05907 seconds - getTime
+Process rank: 23
+Computed in 0.05912 seconds - getTime
+Process rank: 26
+Computed in 0.05908 seconds - getTime
+Process rank: 27
+Computed in 0.05912 seconds - getTime
+Process rank: 30
+Computed in 0.05906 seconds - getTime
+Process rank: 31
+Computed in 0.0591 seconds - getTime
+Process rank: 32
+Computed in 0.05902 seconds - getTime
+Process rank: 33
+Computed in 0.05909 seconds - getTime
+Process rank: 34
+Computed in 0.05907 seconds - getTime
+Process rank: 35
+Computed in 0.05911 seconds - getTime
+Process rank: 20
+Computed in 0.06264 seconds - getTime
+
+
+Batch Job Summary Report (version 21.01.1) for Job "cpi_mpi" (37146746) on daint
+
+Job information (1/2)
+-----------------------------------------------------------------------------------------------------
+             Submit            Eligible               Start                 End    Elapsed Time limit
+------------------- ------------------- ------------------- ------------------- ---------- ----------
+2022-03-13T20:20:40 2022-03-13T20:20:40 2022-03-13T20:20:40 2022-03-13T20:20:47   00:00:07   00:01:00
+-----------------------------------------------------------------------------------------------------
+
+Job information (2/2)
+-------------------------------------------------------------
+    Username      Account    Partition   NNodes        Energy
+------------ ------------ ------------ -------- -------------
+    lfaltner         uzh8        debug        1      0.237 kJ
+
