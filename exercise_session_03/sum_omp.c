@@ -39,3 +39,4 @@ int main(int argc, char *argv[]) {
     tElapsed = getTime() - tStart;
     printf("Computed in %.4g seconds\n", tElapsed);
     return 0;
+}
