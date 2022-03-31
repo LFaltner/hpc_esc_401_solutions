@@ -11,8 +11,17 @@
  * @return     Returns \sqrt{\sum(mat1_{ij} - mat2_{ij})^2/(nx*ny)}
  */
 double norm_diff(params p, double** mat1, double** mat2){
-    printf("Function norm_diff (jacobi.cpp l.12): not implemented.\n");
-    return 0.;
+    int sumOfSqMat1 = 0;
+    int sumOfSqMat2 = 0;
+
+    for(int i=0; i<p.nx ;i++){
+        for(int j=0; j<p.ny; j++){
+      sumOfSqMat1 += (mat1[i][j] * mat1[i][j]); 
+      sumOfSqMat2 += (mat2[i][j] * mat2[i][j]);
+    }
+  }    
+    double res = sqrt((sumOfSqMat1 - sumOfSqMat2)^2/(p.nx*p.ny));
+    return res;
 }
 
 /**
