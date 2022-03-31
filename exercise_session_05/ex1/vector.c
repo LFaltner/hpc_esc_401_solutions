@@ -34,6 +34,10 @@ int main(int argc, char** argv){
 
 	// use linear_combination function for calculation
 	linear_combination(x , y, a);
+
+	// free allocated memory
+	free(x); free(y);
+
 	return 0;
 }
 
