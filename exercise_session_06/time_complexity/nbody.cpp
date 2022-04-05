@@ -2,6 +2,9 @@
 #include <random>
 #include <omp.h>
 #include <stdlib.h>
+#include <chrono> 
+#include <iostream>
+
 
 struct particle {
         float x, y, z; // position 
@@ -49,15 +52,21 @@ void ic(particles &plist, int n) {
 }
 
 int main(int argc, char *argv[]) {
+        auto start = std::chrono::high_resolution_clock::now();
         int N;
 
         // number of particles
         if (argc == 2) N=strtol(argv[1], nullptr, 0);
         else N=20'000;  
 
-        printf("n body count: %d\n", N);
         particles plist; // vector of particles
 	ic(plist,N); // initialize starting position/velocity 
 	forces(plist); // calculate the forces
-	return 0;
+	auto end = std::chrono::high_resolution_clock::now();
+        auto diff_sec = std::chrono::duration_cast<std::chrono::seconds>(end - start);
+        auto diff_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+        std::chrono::duration<long, std::micro> int_usec = diff_ms;
+        std::cout << N <<"," << diff_sec.count() << "." << diff_ms.count() << "\n";
+
+        return 0;
 }
