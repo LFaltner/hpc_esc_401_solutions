@@ -1,5 +1,6 @@
 #include <vector>
 #include <random>
+#include <omp.h>
 
 struct particle {
         float x, y, z; // position 
@@ -11,8 +12,10 @@ typedef std::vector<particle> particles;
 
 void forces(particles &plist) {
         int n = plist.size();
+        #pragma omp parallel for
         for(int i=0; i<n; ++i) { // We want to calculate the force on all particles
                 plist[i].ax = plist[i].ay = plist[i].az = 0; // start with zero acceleration
+                
                 for(int j=0; j<n; ++j) { // Depends on all other particles
                         if (i==j) continue; // Skip self interaction 
                         auto dx = plist[j].x - plist[i].x;
@@ -20,8 +23,11 @@ void forces(particles &plist) {
                         auto dz = plist[j].z - plist[i].z;
                         auto r = sqrt(dx*dx + dy*dy + dz*dz);
                         auto ir3 = 1 / (r*r*r);
+                        #pragma omp atomic
                         plist[i].ax += dx * ir3;
+                        #pragma omp atomic
                         plist[i].ay += dy * ir3;
+                        #pragma omp atomic
                         plist[i].az += dz * ir3;
                 }
         }
