@@ -1,6 +1,7 @@
 #include <vector>
 #include <random>
 #include <omp.h>
+#include <stdlib.h>
 
 struct particle {
         float x, y, z; // position 
@@ -48,8 +49,14 @@ void ic(particles &plist, int n) {
 }
 
 int main(int argc, char *argv[]) {
-	int N=20'000; // number of particles
-	particles plist; // vector of particles
+        int N;
+
+        // number of particles
+        if (argc == 2) N=strtol(argv[1], nullptr, 0);
+        else N=20'000;  
+
+        printf("n body count: %d\n", N);
+        particles plist; // vector of particles
 	ic(plist,N); // initialize starting position/velocity 
 	forces(plist); // calculate the forces
 	return 0;
