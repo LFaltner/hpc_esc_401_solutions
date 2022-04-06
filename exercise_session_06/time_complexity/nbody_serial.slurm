@@ -12,5 +12,8 @@
 #SBATCH --output=nbody_serial.logs 
 #SBATCH --error=nbody_serial.err 
 
-
-bash loop.sh
+echo nbody_count,time > output_serial.csv
+for n in 100 500 1000 5000 10000 20000 50000
+do
+	srun ./nbody_serial $n >> output_serial.csv
+done
