@@ -14,7 +14,7 @@ df = pd.concat([df_serial, df_parallel], axis=1, join='outer')
 
 # plot both curves and save
 plt.plot(df["nbody_count_serial"], df["time_serial"], label="serial")
-plt.plot(df["output_parallel"], df["time_parallel"], label="parallel")
+plt.plot(df["nbody_count_parallel"], df["time_parallel"], label="parallel")
 plt.xlabel("nbody count")
 plt.ylabel("Time")
 plt.legend()
