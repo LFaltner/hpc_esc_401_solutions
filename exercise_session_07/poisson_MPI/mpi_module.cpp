@@ -20,7 +20,24 @@ int mpi_get_domain(int nx, int ny, int my_rank, int size, int* min_x, int* max_x
 	/*
 	define corners or local domains
 	*/
-    printf("in mpi_get_domain() in mpi_module.cpp,  define corners of the local domains\n");
+
+	// y values are the same for every rank
+	*min_y = 0;
+	*max_y = ny;
+
+	// define x boundaries - the last rank will compute the remenants of the division
+	*min_x = nx / size * my_rank;
+	if (my_rank == size - 1)
+	{
+		*max_x = nx;
+	}
+	else
+	{
+		*max_x = nx / size * (my_rank + 1);
+	}
+
+	
+    // printf("in mpi_get_domain() in mpi_module.cpp,  define corners of the local domains\n");
 
 	printf("I am rank %d and my domain is: xmin, xmax, ymin, ymax: %d %d %d %d\n",my_rank,*min_x,*max_x,*min_y,*max_y);
 	return 0;
