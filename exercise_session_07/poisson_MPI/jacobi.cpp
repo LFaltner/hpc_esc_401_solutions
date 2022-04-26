@@ -49,14 +49,33 @@ void jacobi_step(params p, double** u_new, double** u_old, double** f, int my_ra
 
     halo_comm(p, my_rank, size, u_new, fromLeft, fromRight); 
 
-    printf("Function jacobi_step in jacobi.cpp : adapt the update of u_new.\n");
+    // printf("Function jacobi_step in jacobi.cpp : adapt the update of u_new.\n");
+    // implementation of update of u_new
+
+    double left_col, right_col;
+
     for (int i=p.xmin; i<p.xmax; i++){
         if (i==0 || i==p.nx-1) continue;
         for (int j=p.ymin; j<p.ymax; j++){
             if (j==0 || j==p.ny-1) continue;
             int idx = i-p.xmin;
             int idy = j-p.ymin;
-            u_new[idx][idy] = 0.25*(u_old[idx-1][idy] + u_old[idx+1][idy] + u_old[idx][idy-1] + u_old[idx][idy+1] - dx*dy*f[idx][idy]);
+            
+            if (i == p.xmin)
+            {
+                left_col = fromLeft[idy];
+            }
+
+            else left_col = u_old[idx - 1][idy];
+
+            if (i == p.xmax - 1)
+            {
+                right_col = fromRight[idy];
+            }
+
+            else right_col = u_old[idx + 1][idy];
+
+            u_new[idx][idy] = 0.25*(left_col + right_col + u_old[idx][idy-1] + u_old[idx][idy+1] - dx*dy*f[idx][idy]);
         }
     }
     if (p.nx!=p.ny) printf("In function jacobi_step (jacobi.cpp l.26): nx != ny, check jacobi updates\n");
