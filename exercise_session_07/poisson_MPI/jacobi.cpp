@@ -1,6 +1,7 @@
 #include "jacobi.h"
 #include <math.h>
 #include "mpi_module.h"
+#include "mpi.h"
 
 /**
  * @brief      Computes norm of the difference between two matrices
@@ -13,16 +14,22 @@
  */
 double norm_diff(params p, double** mat1, double** mat2){
 
-    printf("Here, in norm_diff() function, change the serial implementation to MPI setup\n");
+    //  printf("Here, in norm_diff() function, change the serial implementation to MPI setup\n");
     double ret=0., diff=0.;
-    for (int i=0; i<p.nx; i++){
-        for (int j=0; j<p.ny; j++){
-            diff = mat1[i][j] - mat2[i][j];
+
+    for (int i=p.xmin; i<p.xmax; i++){
+        for (int j=p.ymin; j<p.ymax; j++){
+            int idx = i - p.xmin;
+            int idy = j - p.ymin;
+            diff = mat1[idx][idy] - mat2[idx][idy];
             ret += diff*diff;
         }
     }
-    ret = sqrt(ret/(p.nx*p.ny));
-    return ret;
+
+    double sum = 0., res = 0.;
+    MPI_Allreduce(&ret, &sum, 1, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
+    res = sqrt(sum/(p.nx*p.ny));
+    return res;
 }
 
 /**
