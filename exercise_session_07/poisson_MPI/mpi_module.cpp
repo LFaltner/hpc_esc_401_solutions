@@ -43,37 +43,79 @@ int mpi_get_domain(int nx, int ny, int my_rank, int size, int* min_x, int* max_x
 	return 0;
 }
 
-int halo_comm(params p, int my_rank, int size, double** u, double* fromLeft, double* fromRight){
+
+int halo_comm(params p, int my_rank, int size, double** u, double* fromLeft, double* fromRight) {
 	
 	/*this function, vectors fromLeft and fromRight should be received from the neighbours of my_rank process*/
-	/*if you want to implement also cartesian topology, you need fromTop and fromBottom in addition to fromLeft a
-	nd fromRight*/
-
 	for (int j=0;j<(p.ymax - p.ymin);j++) {fromLeft[j] = 0; fromRight[j] = 0;} //initialize fromLeft and fromRight
 
-    /* define columns to be sent to right neighbour and to the left neighbour, 
+	/* define columns to be sent to right neighbour and to the left neighbour,
     also receive one both form left and right neighbour*/
+	 
+	/*Compute the ranks of left/right neighbours 
+    Compute first rank (= rank 0)*/
+    
+	int left_rank, right_rank;
 
-    /* choose either to define MPIcolumn_type (lines 43-45) or define 
-    the columns to be sent manually (lines 53-56)*/
+    if (my_rank == 0)
+    {
+        left_rank = size - 1;  // last rank = size - 1 as numbering starts with 0
+        right_rank = 1;
+    }
 
-    // MPI_Datatype column_type;
-    // MPI_Type_vector(p.ymax - p.ymin, 1, p.xmax - p.xmin, MPI_DOUBLE, &column_type);
-    // MPI_Type_commit(&column_type);
+    // Compute last rank (= rank size -1 )
+    else if (my_rank == size - 1)
+    {
+        left_rank = size - 2;
+        right_rank  = 0;
+    }
 
-    // ...some code goes here and then do not forget to free the column_type
+    // Compute ranks in between
+    else
+    {
+        left_rank = my_rank - 1;
+        right_rank = my_rank + 1;
+    }
 
-    // MPI_Type_free(&column_type);
+    int diff_x = p.xmax - p.xmin;
 
-	//or alternative approach below
+    MPI_Datatype column_type;
+    MPI_Type_vector(p.ymax - p.ymin, 1, 1, MPI_DOUBLE, &column_type);
+    MPI_Type_commit(&column_type);
 
-	// double* column_to_right = new double [p.ymax - p.ymin];
-	// for (int j=0;j<(p.ymax - p.ymin);j++) column_to_right[j] = u[p.xmax - p.xmin - 1][j]; 
-	// double* column_to_left = new double [p.ymax - p.ymin];
-	// for (int j=0;j<(p.ymax - p.ymin);j++) column_to_left[j] = u[0][j]; 
+    MPI_Request requests[4];
+    MPI_Status status[4];
+  
+    for (int i = 0; i < 4; ++i)
+    {
+        requests[i] = MPI_REQUEST_NULL;
+    }
 
+    //  send to right and left, receive from right and left, then wait for all requests to finish
+    //  first and last rank need to be treated differently
+    if (my_rank == 0)
+    {
+    	MPI_Isend(&u[diff_x - 1 ][0], 1, column_type, right_rank, 0, MPI_COMM_WORLD, &requests[0]);
+    	MPI_Irecv(fromRight, 1, column_type, right_rank, 0, MPI_COMM_WORLD, &requests[1]);
+    }
 
-	printf("mpi_module.cpp, define halo comm:  \n");
+    else if (my_rank == size - 1)
+    {
+    	MPI_Isend(&u[0][0], 1, column_type, left_rank, 0, MPI_COMM_WORLD, &requests[2]);
+    	MPI_Irecv(fromLeft, 1, column_type, left_rank, 0, MPI_COMM_WORLD, &requests[3]);
+    }
+    else
+    {
+    	MPI_Isend(&u[diff_x - 1 ][0], 1, column_type, right_rank, 0, MPI_COMM_WORLD, &requests[0]);
+    	MPI_Irecv(fromRight, 1, column_type, right_rank, 0, MPI_COMM_WORLD, &requests[1]);
+    	MPI_Isend(&u[0][0], 1, column_type, left_rank, 0, MPI_COMM_WORLD, &requests[2]);
+    	MPI_Irecv(fromLeft, 1, column_type, left_rank, 0, MPI_COMM_WORLD, &requests[3]);
+    }
+	
+	MPI_Waitall(4, requests, status);
+
+    MPI_Type_free(&column_type);
+
 	return 0;
 }
 
