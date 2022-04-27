@@ -46,6 +46,10 @@ int mpi_get_domain(int nx, int ny, int my_rank, int size, int* min_x, int* max_x
 
 int halo_comm(params p, int my_rank, int size, double** u, double* fromLeft, double* fromRight) {
 	
+	if (size == 1)
+	{
+		return 0;
+	}
 	/*this function, vectors fromLeft and fromRight should be received from the neighbours of my_rank process*/
 	for (int j=0;j<(p.ymax - p.ymin);j++) {fromLeft[j] = 0; fromRight[j] = 0;} //initialize fromLeft and fromRight
 
