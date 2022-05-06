@@ -1,0 +1,7 @@
+trump_tweets_01.csv
+trump_tweets_02.csv
+trump_tweets_03.csv
+trump_tweets_04.csv
+trump_tweets_05.csv
+trump_tweets_06.csv
+trump_tweets_07.csv
