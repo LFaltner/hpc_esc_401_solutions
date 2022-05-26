@@ -8,7 +8,6 @@
 
 #ifdef _OPENACC
     // TODO: declare routine accordingly so as to be called from the GPU
-    std::cout << "OPENACC version: " << _OPENACC << std::endl;
     void blur_twice_gpu_naive();
     void blur_twice_gpu_nocopies();
 #endif
@@ -76,7 +75,7 @@ void blur_twice_gpu_nocopies(double *in , double *out , int n, int nsteps)
     double *buffer = malloc_host<double>(n);
 
     // TODO: move the data needed by the algorithm to the GPU
-    #pragma acc data copyin(buffer) copyout(out)
+    #pragma acc data copyin(buffer[:n]) copyout(out[:n])
     {
         for (auto istep = 0; istep < nsteps; ++istep) {
             // TODO: offload this loop to the GPU
