@@ -1,7 +1,7 @@
 .PHONY: all clean
 
-CRAY ?= 1
-PGI  ?= 0
+CRAY ?= 0
+PGI  ?= 1
 GCC  ?= 0
 VERBOSE ?= 0
 
