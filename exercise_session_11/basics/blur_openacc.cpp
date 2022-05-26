@@ -10,6 +10,7 @@
     // TODO: declare routine accordingly so as to be called from the GPU
     void blur_twice_gpu_naive();
     void blur_twice_gpu_nocopies();
+    void blur();
 #endif
 double blur(int pos, const double *u)
 {
