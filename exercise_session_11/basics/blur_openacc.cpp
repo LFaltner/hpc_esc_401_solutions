@@ -9,6 +9,8 @@
 #ifdef _OPENACC
     // TODO: declare routine accordingly so as to be called from the GPU
     std::cout << "OPENACC version: " << _OPENACC << std::endl;
+    void blur_twice_gpu_naive();
+    void blur_twice_gpu_nocopies();
 #endif
 double blur(int pos, const double *u)
 {
