@@ -9,6 +9,7 @@
 #SBATCH --partition=debug
 #SBATCH --constraint=gpu
 #SBATCH --hint=nomultithread
+#SBATCH --output="axpy_openacc.out"
 
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 export CRAY_CUDA_MPS=1
@@ -17,3 +18,7 @@ srun -n 1 ./axpy.openacc 2
 srun -n 1 ./axpy.openacc 6
 srun -n 1 ./axpy.openacc 10
 srun -n 1 ./axpy.openacc 14
+srun -n 1 ./axpy.openacc 18
+srun -n 1 ./axpy.openacc 22
+srun -n 1 ./axpy.openacc 26
+srun -n 1 ./axpy.openacc 30
