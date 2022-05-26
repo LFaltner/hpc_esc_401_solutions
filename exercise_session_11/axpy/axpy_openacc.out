@@ -1,0 +1,49 @@
+memcopy and daxpy test of size 4
+-------
+timings
+-------
+axpy (openmp): 9.53674e-07 s
+axpy (openacc): 0.000276089 s
+
+============ PASSED
+memcopy and daxpy test of size 64
+-------
+timings
+-------
+axpy (openmp): 0 s
+axpy (openacc): 0.000255823 s
+
+============ PASSED
+memcopy and daxpy test of size 1024
+-------
+timings
+-------
+axpy (openmp): 1.19209e-06 s
+axpy (openacc): 0.00026083 s
+
+============ PASSED
+memcopy and daxpy test of size 16384
+-------
+timings
+-------
+axpy (openmp): 1.19209e-05 s
+axpy (openacc): 0.000282049 s
+
+============ PASSED
+
+
+Batch Job Summary Report (version 21.01.1) for Job "axpy_openacc" (38747955) on daint
+
+Job information (1/2)
+-----------------------------------------------------------------------------------------------------
+             Submit            Eligible               Start                 End    Elapsed Time limit
+------------------- ------------------- ------------------- ------------------- ---------- ----------
+2022-05-26T13:24:21 2022-05-26T13:24:21 2022-05-26T13:24:22 2022-05-26T13:24:36   00:00:14   00:05:00
+-----------------------------------------------------------------------------------------------------
+
+Job information (2/2)
+-------------------------------------------------------------
+    Username      Account    Partition   NNodes        Energy
+------------ ------------ ------------ -------- -------------
+    lfaltner         uzg2        debug        1      0.920 kJ
+
